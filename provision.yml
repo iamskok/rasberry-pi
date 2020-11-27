@@ -1,0 +1,47 @@
+- hosts: all
+  become: yes
+  vars:
+    zsh_antigen_bundles_extras:
+      - nvm
+      - docker
+      - zsh-users/zsh-syntax-highlighting
+      - git
+      - last-working-dir
+      - history
+      - z
+
+  pre_tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        upgrade: "yes"
+        update_cache: yes
+        cache_valid_time: 3600
+    - name: Install zsh
+      apt:
+        name: zsh
+
+  tasks:
+    - name: Install PHP
+      apt:
+        name: php7.2
+
+  roles:
+    - role: nickjj.docker
+      docker__edition: ce
+      docker__channel: [stable]
+      docker__version: 19.03.13
+
+    - role: fubarhouse.nodejs
+      node_version: 14.5.0
+      node_versions:
+        - 15.2.0
+    - role: ocha.yarn
+
+    - role: viasite-ansible.zsh
+      zsh_aliases:
+      - alias: 'python'
+        action: 'python3'
+      - alias: 'rmd'
+        action: 'rm -rf'
+      - alias: 'c'
+        action: 'clear'
