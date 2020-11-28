@@ -20,3 +20,11 @@ Execure playbook:
 ```sh
 ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -i hosts provision.yml
 ```
+
+## Clone the SD Card
+
+```sh
+sudo dd if=/dev/disk2 of=/Users/skok/dev/raspberry-pi/images/provisioned-pi.img
+```
+
+To check the status of `dd` command type <kbd>CTRL</kbd>+<kbd>T</kbd> in the terminal running `dd`.
