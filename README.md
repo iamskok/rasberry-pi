@@ -28,3 +28,35 @@ sudo dd if=/dev/disk2 of=/Users/skok/dev/raspberry-pi/images/provisioned-pi.img
 ```
 
 To check the status of `dd` command type <kbd>CTRL</kbd>+<kbd>T</kbd> in the terminal running `dd`.
+
+## Assign Static IP
+
+```sh
+sudo nano /etc/network/interfaces
+```
+
+Replace `iface eth0 inet dhcp` with `iface eth0 inet static`.
+
+```sh
+iface eth0 inet static
+address 10.0.1.64
+netmask 255.255.255.0
+network 10.0.1.0
+broadcast 10.0.1.255
+gateway 10.0.1.1
+```
+
+find the line `allow-hotplug wlan0` above it, add `auto wlan0`, then below it add:
+
+```sh
+iface wlan0 inet static
+        wpa-ssid "yournetworkname"
+        wpa-psk "yournetworkpassword"
+address 10.0.1.64
+netmask 255.255.255.0
+network 10.0.1.0
+broadcast 10.0.1.255
+gateway 10.0.1.1
+```
+
+Reboot Pi for changes to take effect `sudo reboot`.
