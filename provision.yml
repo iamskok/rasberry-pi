@@ -1,14 +1,5 @@
 - hosts: all
   become: yes
-  vars:
-    zsh_antigen_bundles_extras:
-      - nvm
-      - docker
-      - zsh-users/zsh-syntax-highlighting
-      - git
-      - last-working-dir
-      - history
-      - z
 
   pre_tasks:
     - name: Update and upgrade apt packages
@@ -20,28 +11,66 @@
       apt:
         name: zsh
 
-  tasks:
-    - name: Install PHP
-      apt:
-        name: php7.2
-
   roles:
-    - role: nickjj.docker
-      docker__edition: ce
-      docker__channel: [stable]
-      docker__version: 19.03.13
-
-    - role: fubarhouse.nodejs
-      node_version: 14.5.0
-      node_versions:
-        - 15.2.0
-    - role: ocha.yarn
-
     - role: viasite-ansible.zsh
       zsh_aliases:
-      - alias: 'python'
-        action: 'python3'
-      - alias: 'rmd'
-        action: 'rm -rf'
-      - alias: 'c'
-        action: 'clear'
+        - alias: python
+          action: python3
+        - alias: rmd
+          action: rm -rf
+        - alias: c
+          action: clear
+      zsh_antigen_bundles:
+        - git
+        - last-working-dir
+        - history
+        - z
+        - zsh-users/zsh-syntax-highlighting
+        - zsh-users/zsh-autosuggestions
+        - unixorn/autoupdate-antigen.zshplugin
+
+    - role: geerlingguy.pip
+      pip_package: python3-pip
+
+    - role: geerlingguy.docker_arm
+
+    - role: ansible-role-nvm
+      nodejs_version: "14.5.0"
+      nvm_profile: "$HOME/.zshrc"
+      tags: [nodejs]
+
+    - role: ocha.yarn
+      tags: [nodejs]
+
+  tasks:
+    - name: Set authorized key
+      ansible.posix.authorized_key:
+        user: root
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      tags: [ssh]
+
+    - name: Enable root login over SSH
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: "^PermitRootLogin"
+        line: "PermitRootLogin yes"
+        state: present
+      tags: [ssh]
+
+    - name: Disable SSH authentication with password
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: "^PasswordAuthentication"
+        line: "PasswordAuthentication no"
+        state: present
+      tags: [ssh]
+
+  post_tasks:
+    - name: Stop and Start ssh
+      service:
+        name: ssh
+        state: restarted
+    - name: Reload zsh
+      command: "/bin/zsh -c 'source ~/.zshrc'"
+

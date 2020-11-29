@@ -12,7 +12,10 @@ Install playbooks:
 ```sh
 ansible-galaxy install viasite-ansible.zsh \
   fubarhouse.nodejs \
-  ocha.yarn
+  ocha.yarn \
+  geerlingguy.docker_arm \
+  geerlingguy.pip \
+  && ansible-galaxy collection install ansible.posix
 ```
 
 Execure playbook:
@@ -60,3 +63,14 @@ gateway 10.0.1.1
 ```
 
 Reboot Pi for changes to take effect `sudo reboot`.
+
+## Copy files and directories
+
+```sh
+scp -r dual-color-led root@192.168.1.78:/home/pi/Projects/SunFounder_johny5
+```
+
+## Links
+
+- [raspi-io](https://github.com/nebrius/raspi-io)
+- [johnny-five](https://github.com/rwaldron/johnny-five)
