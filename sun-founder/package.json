@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "i2c-lcd": "nodemon --watch ./ i2c-lcd/index.js",
+    "dual-color-led": "nodemon --watch ./ dual-color-led/index.js",
+    "button-dual-color-led": "nodemon --watch ./ button-dual-color-led/index.js"
+  },
+  "dependencies": {
+    "johnny-five": "^2.0.0",
+    "raspi-io": "^11.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
