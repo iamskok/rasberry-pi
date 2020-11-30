@@ -70,6 +70,23 @@ Reboot Pi for changes to take effect `sudo reboot`.
 scp -r dual-color-led root@192.168.1.78:/home/pi/Projects/SunFounder_johny5
 ```
 
+## Sync local directory with Pi
+
+```sh
+brew install fswatch
+```
+
+Watch `/Users/skok/dev/raspberry-pi/sun-founder` directory and copy it over in
+`/home/pi/Projects` directory of a remote host.
+
+```sh
+fswatch -o /Users/skok/dev/raspberry-pi/sun-founder | xargs -n1 -I{} scp -r /Users/skok/dev/raspberry-pi/sun-founder root@192.168.1.78:/home/pi/Projects
+```
+
+## Watch for changes in Pi
+
+Run `yarn <example-name>` inside of the project root directory. It will listen for changes and rerun node.js script on change.
+
 ## Links
 
 - [raspi-io](https://github.com/nebrius/raspi-io)
