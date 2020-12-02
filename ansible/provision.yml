@@ -66,11 +66,23 @@
         state: present
       tags: [ssh]
 
+    - name: Set static IP address
+      blockinfile:
+        path: /etc/dhcpcd.conf
+        block: "{{ lookup('file', './files/dhcpcd.conf') }}"
+        insertbefore: EOF
+      tags: [network]
+
   post_tasks:
-    - name: Stop and Start ssh
+    - name: Stop and start ssh
       service:
         name: ssh
         state: restarted
+    - name: Stop and start dhcpcd
+      service:
+        name: dhcpcd
+        state: restarted
     - name: Reload zsh
       command: "/bin/zsh -c 'source ~/.zshrc'"
+
 
