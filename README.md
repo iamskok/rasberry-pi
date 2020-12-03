@@ -65,6 +65,16 @@ fswatch -o /Users/skok/dev/raspberry-pi/sun-founder | xargs -n1 -I{} scp -r /Use
 
 Run `yarn <example-name>` inside of the project root directory. It will listen for changes and rerun node.js script on change.
 
+## SSH config
+
+```sh
+host pi
+  hostname 192.168.86.41
+  user root
+  port 22
+  IdentityFile ~/.ssh/id_rsa
+```
+
 ## Links
 
 - [raspi-io](https://github.com/nebrius/raspi-io)

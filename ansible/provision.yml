@@ -1,15 +1,33 @@
 - hosts: all
   become: yes
+  vars:
+    pip_package: python3-pip
+    docker_pip_executable: pip3
 
   pre_tasks:
+    - name: Ensure the locale exists
+      locale_gen:
+        name: en_US.UTF-8
+        state: present
+    - name: Set default locale
+      command: localectl set-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+    - name: Set timezone to America/New York
+      community.general.timezone:
+        name: America/New_York
+    - name: Set a hostname
+      hostname:
+        name: pi1
     - name: Update and upgrade apt packages
       apt:
         upgrade: "yes"
         update_cache: yes
         cache_valid_time: 3600
-    - name: Install zsh
+    - name: Install packages
       apt:
-        name: zsh
+        name:
+          - zsh
+            # https://github.com/geerlingguy/ansible-role-docker_arm/pull/4#issuecomment-682126728
+          - libffi-dev
 
   roles:
     - role: viasite-ansible.zsh
@@ -29,11 +47,6 @@
         - zsh-users/zsh-autosuggestions
         - unixorn/autoupdate-antigen.zshplugin
 
-    - role: geerlingguy.pip
-      pip_package: python3-pip
-
-    - role: geerlingguy.docker_arm
-
     - role: ansible-role-nvm
       nodejs_version: "14.5.0"
       nvm_profile: "$HOME/.zshrc"
@@ -41,6 +54,9 @@
 
     - role: ocha.yarn
       tags: [nodejs]
+
+    - role: geerlingguy.pip
+    - role: geerlingguy.docker_arm
 
   tasks:
     - name: Set authorized key
@@ -66,21 +82,15 @@
         state: present
       tags: [ssh]
 
-    - name: Set static IP address
-      blockinfile:
-        path: /etc/dhcpcd.conf
-        block: "{{ lookup('file', './files/dhcpcd.conf') }}"
-        insertbefore: EOF
-      tags: [network]
+    - name: copy Projects directory
+      copy:
+        src: ../Projects
+        dest: /home/pi
 
   post_tasks:
     - name: Stop and start ssh
       service:
         name: ssh
-        state: restarted
-    - name: Stop and start dhcpcd
-      service:
-        name: dhcpcd
         state: restarted
     - name: Reload zsh
       command: "/bin/zsh -c 'source ~/.zshrc'"
