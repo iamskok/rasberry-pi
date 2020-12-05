@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+</head>
+<body>
+  <input id="username" placeholder="username"/>
+  <input id="text" placeholder="type text"/>
+  <button>Submit</button>
+  <ul></ul>
+  <script>
+    document.querySelector('button').addEventListener('click', () => {
+      const textInput = document.getElementById('text')
+      const usernameInput = document.getElementById('username')
+
+      const text = textInput.value.trim()
+      const username = usernameInput.value.trim()
+      textInput.value = ''
+
+      if (!text || !username) {
+        return
+      }
+
+      const data = {
+        username,
+        text
+      }
+
+      socket.emit('message', data)
+    })
+
+    function addMsg(username, text) {
+      const li = document.createElement('li')
+      li.textContent = `${username}: ${text}`
+      document.querySelector('ul').appendChild(li)
+    }
+
+    const socket = io("http://108.80.11.217:3000")
+
+    socket.on('connect', (message) => {
+      console.log('new connection')
+    })
+
+    socket.on('message', ({ username, text }) => {
+      console.table({
+        username,
+        text
+      })
+      addMsg(username, text)
+    })
+  </script>
+</body>
+</html>
