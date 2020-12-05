@@ -5,6 +5,7 @@
     docker_pip_executable: pip3
 
   pre_tasks:
+    # Add anible-raspi-config
     - name: Ensure the locale exists
       locale_gen:
         name: en_US.UTF-8
@@ -28,6 +29,7 @@
           - zsh
             # https://github.com/geerlingguy/ansible-role-docker_arm/pull/4#issuecomment-682126728
           - libffi-dev
+          - fd
 
   roles:
     - role: viasite-ansible.zsh
