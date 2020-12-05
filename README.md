@@ -75,6 +75,15 @@ host pi
   IdentityFile ~/.ssh/id_rsa
 ```
 
+## Network configs
+
+* Router `192.168.1.254`
+* Google Wi-Fi Router LAN `192.168.86.1`
+* Google Wi-Fi DHCP Pool
+  - Pi eth0 `192.168.86.40`
+  - Pi wlan0 `192.168.86.41`
+* Pi Hole DHCP Pool `192.168.86.50 - 192.168.86.150`
+
 ## Links
 
 - [raspi-io](https://github.com/nebrius/raspi-io)
