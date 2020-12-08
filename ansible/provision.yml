@@ -5,19 +5,18 @@
     docker_pip_executable: pip3
 
   pre_tasks:
-    # Add anible-raspi-config
     - name: Ensure the locale exists
       locale_gen:
         name: en_US.UTF-8
         state: present
     - name: Set default locale
-      command: localectl set-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+      command: localectl set-locale LANG=en_US.UTF-8
     - name: Set timezone to America/New York
       community.general.timezone:
         name: America/New_York
     - name: Set a hostname
       hostname:
-        name: pi1
+        name: RPi-01
     - name: Update and upgrade apt packages
       apt:
         upgrade: "yes"
@@ -26,10 +25,10 @@
     - name: Install packages
       apt:
         name:
-          - zsh
             # https://github.com/geerlingguy/ansible-role-docker_arm/pull/4#issuecomment-682126728
           - libffi-dev
-          - fd
+          - fd-find
+          - python3-gpiozero
 
   roles:
     - role: viasite-ansible.zsh
