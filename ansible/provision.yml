@@ -29,6 +29,7 @@
           - libffi-dev
           - fd-find
           - python3-gpiozero
+          - tree
 
   roles:
     - role: viasite-ansible.zsh
