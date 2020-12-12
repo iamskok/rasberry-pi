@@ -1,7 +1,7 @@
 [pi]
-192.168.86.40
+192.168.1.101
 
 [pi:vars]
-ansible_user=root
+ansible_user=pi
 ansible_password=raspberry
 ansible_python_interpreter=/usr/bin/python3

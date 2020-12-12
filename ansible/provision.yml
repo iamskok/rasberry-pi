@@ -30,6 +30,7 @@
           - fd-find
           - python3-gpiozero
           - tree
+          - dnsutils
 
   roles:
     - role: viasite-ansible.zsh
@@ -42,6 +43,9 @@
           action: clear
       zsh_antigen_bundles:
         - git
+        - docker
+        - docker-compose
+        - kubectl
         - last-working-dir
         - history
         - z

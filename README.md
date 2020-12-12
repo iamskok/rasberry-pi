@@ -88,3 +88,4 @@ host pi
 
 - [raspi-io](https://github.com/nebrius/raspi-io)
 - [johnny-five](https://github.com/rwaldron/johnny-five)
+- [RPi pinout](https://pinout.xyz/pinout)
