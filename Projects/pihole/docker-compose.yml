@@ -12,10 +12,22 @@ services:
       - 443:443/tcp
     environment:
       TZ: America/New_York
-      WEBPASSWORD: raspberry
+      WEBPASSWORD: "${WEBPASSWORD}"
+      ServerIP: 192.168.1.102
+      DNS1: 1.1.1.1
+      DNS2: 1.0.0.1
+      DNSSEC: "true"
+      DNS_BOGUS_PRIV: "true"
+      DNS_FQDN_REQUIRED: "true"
+      REV_SERVER: "true"
+      REV_SERVER_CIDR: 192.168.1.1/16
+      REV_SERVER_TARGET: 192.168.1.1
     volumes:
+      - ./hosts:/etc/hosts
       - ./etc-pihole/:/etc/pihole/
       - ./etc-dnsmasq.d/:/etc/dnsmasq.d/
     cap_add:
       - NET_ADMIN
+    env_file:
+      - .env
     restart: unless-stopped
