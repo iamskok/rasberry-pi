@@ -1,24 +1,34 @@
-# MacBooks
-192.168.1.249 vladimir-mbp-1
-192.168.1.144 vladimir-mbp-2
-192.168.1.131 thd-mbp
+# Hosts
 
-# iPhones
-192.168.1.163 vladimir-iphone
-192.168.1.252 yana-iphone
+## LAN
 
-# Raspberry Pis
-192.168.1.101 raspberry-pi-1
-192.168.1.102 raspberry-pi-2
-192.168.1.103 raspberry-pi-3
+### MacBooks
+192.168.1.10 vladimir-mbp-1
+192.168.1.11 vladimir-mbp-2
+192.168.1.12 thd-mbp
 
-# TVs
-192.168.2.124 kitchen-tv
-192.168.2.189 bedroom-tv
+### iPhones
+192.168.1.20 vladimir-iphone
+192.168.1.21 yana-iphone
 
-# IoT
-192.168.2.229 google-home
-192.168.2.105 nest-thermostat
-192.168.2.143 office-light-bulb-1
-192.168.2.130 office-light-bulb-2
+### Raspberry Pis
+192.168.1.30 raspberry-pi-1
+192.168.1.31 raspberry-pi-2
+192.168.1.32 raspberry-pi-3
+
+## IoT
+
+### TVs
+192.168.2.10 kitchen-tv
+192.168.2.11 bedroom-tv
+
+### Home Assistants
+192.168.2.20 google-home
+
+### Thermostats
+192.168.2.30 nest-thermostat
+
+### Light Bulbs
+192.168.2.40 office-light-bulb-1
+192.168.2.41 office-light-bulb-2
 

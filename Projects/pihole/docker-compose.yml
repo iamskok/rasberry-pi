@@ -13,14 +13,14 @@ services:
     environment:
       TZ: America/New_York
       WEBPASSWORD: "${WEBPASSWORD}"
-      ServerIP: 192.168.1.103
+      ServerIP: 192.168.1.31
       DNS1: 1.1.1.1
       DNS2: 1.0.0.1
       DNSSEC: "true"
       DNS_BOGUS_PRIV: "true"
       DNS_FQDN_REQUIRED: "true"
       REV_SERVER: "true"
-      REV_SERVER_CIDR: 192.168.1.1/16
+      REV_SERVER_CIDR: 192.168.0.0/16
       REV_SERVER_TARGET: 192.168.1.1
     volumes:
       - ./hosts:/etc/hosts
