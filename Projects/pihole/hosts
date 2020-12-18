@@ -17,7 +17,10 @@
 192.168.1.32 raspberry-pi-3
 192.168.1.33 raspberry-pi-1
 
-192.168.1.200 inifi-poe-lite
+### Switches
+192.168.1.100 usw-lite-8-poe
+
+
 
 ## IoT
 
