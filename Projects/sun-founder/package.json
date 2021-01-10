@@ -5,10 +5,10 @@
     "button-dual-color-led": "nodemon --watch ./ button-dual-color-led/index.js"
   },
   "dependencies": {
-    "johnny-five": "^2.0.0",
-    "raspi-io": "^11.0.0"
+    "johnny-five": "2.0.0",
+    "raspi-io": "11.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "nodemon": "2.0.7"
   }
 }
